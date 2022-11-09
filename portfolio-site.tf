@@ -21,3 +21,10 @@ module "portfolio_site" {
     ]
   }
 }
+
+resource "aws_ssm_parameter" "portfolio_site_cloudfront_distribution_id" {
+  name  = format("/cloudfront/%s/id", var.portfolio_domain_name)
+  type  = "String"
+  value = module.portfolio_site.content_cloudfront_distribution_info.id
+  tags  = local.global_tags
+}
