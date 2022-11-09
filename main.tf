@@ -9,13 +9,18 @@ provider "aws" {
   region = var.region
 }
 
+provider "aws" {
+  region = "us-east-1"
+  alias  = "us_east_1"
+}
+
 data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
 locals {
   global_tags = {
-    CreatedBy   = "https://github.com/ntno/tf-ntno.net"
+    CreatedBy   = "tf-ntno.net"
     Provisioner = "Terraform"
     project     = "ntno.net"
     domain      = "personal"
