@@ -1,4 +1,4 @@
-esource "aws_iam_policy" "read_write_artifacts_policy" {
+resource "aws_iam_policy" "read_write_artifacts_policy" {
     #replace(aws_s3_bucket.artifacts_bucket.id, ".", "_")
   name        = format("ReadWrite_%s_Objects",  aws_s3_bucket.artifacts_bucket.id)
   path        = "/CustomerManaged/"
