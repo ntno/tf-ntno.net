@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "read_write_artifacts_policy" {
-    #replace(aws_s3_bucket.artifacts_bucket.id, ".", "_")
-  name        = format("ReadWrite_%s_Objects",  aws_s3_bucket.artifacts_bucket.id)
+  #replace(aws_s3_bucket.artifacts_bucket.id, ".", "_")
+  name        = format("ReadWrite_%s_Objects", aws_s3_bucket.artifacts_bucket.id)
   path        = "/CustomerManaged/"
   description = format("Allows read/write on %s objects", aws_s3_bucket.artifacts_bucket.id)
   tags        = local.global_tags
@@ -12,14 +12,14 @@ resource "aws_iam_policy" "read_write_artifacts_policy" {
     Statement = [
       {
         Action = [
-            "s3:PutObject",
-            "s3:GetObject",
-            "s3:GetEncryptionConfiguration"
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:GetEncryptionConfiguration"
         ]
-        Effect   = "Allow"
+        Effect = "Allow"
         Resource = [
-            format("arn:aws:s3:::%s", aws_s3_bucket.artifacts_bucket.id),
-            format("arn:aws:s3:::%s/*", aws_s3_bucket.artifacts_bucket.id)
+          format("arn:aws:s3:::%s", aws_s3_bucket.artifacts_bucket.id),
+          format("arn:aws:s3:::%s/*", aws_s3_bucket.artifacts_bucket.id)
         ]
       }
     ]

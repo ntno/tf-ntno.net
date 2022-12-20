@@ -26,6 +26,11 @@ resource "aws_s3_bucket" "artifacts_bucket" {
   tags   = local.global_tags
 }
 
+resource "aws_s3_bucket_acl" "artifacts_bucket_acl" {
+  bucket = aws_s3_bucket.artifacts_bucket.id
+  acl    = "private"
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "artifact_bucket_server_side_encryption" {
   bucket = aws_s3_bucket.artifacts_bucket.id
 
