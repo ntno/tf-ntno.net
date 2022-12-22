@@ -46,8 +46,54 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_policy" {
   })
 }
 
+resource "aws_iam_policy" "read_write_ntnonet_ci_stack_policy" {
+  name        = format("ReadWrite_%s_CloudformationStack", var.ci_user)
+  path        = "/CustomerManaged/"
+  description = format("Allows read/write on %s Cloudformation Stack", var.ci_user)
+  tags        = local.global_tags
 
-resource "aws_iam_user_policy_attachment" "read_write_ntnonet_policy_attachment" {
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+            "cloudformation:RollbackStack",
+            "cloudformation:CreateStack",
+            "cloudformation:DescribeStackInstance",
+            "cloudformation:DeleteStack",
+            "cloudformation:ListStackResources"
+        ]
+        Effect = "Allow"
+        Resource = [
+          format("arn:aws:cloudformation:*:%s:stack/%s*/*", data.aws_caller_identity.current.account_id, var.ci_user)
+        ]
+      }
+    ]
+  })
+}
+
+
+             
+                
+
+resource "aws_iam_user_policy_attachment" "read_write_artifacts_policy_attachment" {
+  user       = var.ci_user
+  policy_arn = aws_iam_policy.read_write_artifacts_policy.arn
+}
+
+resource "aws_iam_user_policy_attachment" "read_write_ssm_policy_attachment" {
+  user       = var.ci_user
+  policy_arn = aws_iam_policy.read_write_ssm_policy.arn
+}
+
+resource "aws_iam_user_policy_attachment" "read_write_ntnonet_ci_policy_attachment" {
   user       = var.ci_user
   policy_arn = aws_iam_policy.read_write_ntnonet_ci_policy.arn
+}
+
+resource "aws_iam_user_policy_attachment" "read_write_ntnonet_ci_stack_policy_attachment" {
+  user       = var.ci_user
+  policy_arn = aws_iam_policy.read_write_ntnonet_ci_stack_policy.arn
 }

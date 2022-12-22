@@ -26,12 +26,6 @@ resource "aws_iam_policy" "read_write_artifacts_policy" {
 }
 
 
-resource "aws_iam_user_policy_attachment" "read_write_artifacts_policy_attachment" {
-  user       = var.ci_user
-  policy_arn = aws_iam_policy.read_write_artifacts_policy.arn
-}
-
-
 resource "aws_iam_policy" "read_write_ssm_policy" {
   name        = format("ReadWrite_%s_SSM_Parameters", var.portfolio_domain_name)
   path        = "/CustomerManaged/"
@@ -64,9 +58,4 @@ resource "aws_iam_policy" "read_write_ssm_policy" {
       }
     ]
   })
-}
-
-resource "aws_iam_user_policy_attachment" "read_write_ssm_policy_attachment" {
-  user       = var.ci_user
-  policy_arn = aws_iam_policy.read_write_ssm_policy.arn
 }
