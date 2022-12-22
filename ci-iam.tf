@@ -3,7 +3,7 @@
 resource "aws_iam_policy" "read_write_ntnonet_ci_policy" {
   name        = format("ReadWrite_%s_S3", var.ci_user)
   path        = "/CustomerManaged/"
-  description = format("Allows read/write on %s S3", var.ci_user)
+  description = format("Allows read/write on %s S3 buckets", var.ci_user)
   tags        = local.global_tags
 
   # Terraform's "jsonencode" function converts a
@@ -49,7 +49,7 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_policy" {
 resource "aws_iam_policy" "read_write_ntnonet_ci_stack_policy" {
   name        = format("ReadWrite_%s_CloudformationStack", var.ci_user)
   path        = "/CustomerManaged/"
-  description = format("Allows read/write on %s Cloudformation Stack", var.ci_user)
+  description = format("Allows read/write on %s Cloudformation Stacks", var.ci_user)
   tags        = local.global_tags
 
   # Terraform's "jsonencode" function converts a
@@ -59,11 +59,11 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_stack_policy" {
     Statement = [
       {
         Action = [
-            "cloudformation:RollbackStack",
-            "cloudformation:CreateStack",
-            "cloudformation:DescribeStackInstance",
-            "cloudformation:DeleteStack",
-            "cloudformation:ListStackResources"
+          "cloudformation:RollbackStack",
+          "cloudformation:CreateStack",
+          "cloudformation:DescribeStackInstance",
+          "cloudformation:DeleteStack",
+          "cloudformation:ListStackResources"
         ]
         Effect = "Allow"
         Resource = [
@@ -75,8 +75,8 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_stack_policy" {
 }
 
 
-             
-                
+
+
 
 resource "aws_iam_user_policy_attachment" "read_write_artifacts_policy_attachment" {
   user       = var.ci_user
