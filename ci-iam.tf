@@ -39,6 +39,7 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_policy" {
         ]
         Effect = "Allow"
         Resource = [
+          "arn:aws:s3:::*",
           format("arn:aws:s3:::%s*", var.ci_user)
         ]
       }
@@ -61,7 +62,7 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_stack_policy" {
         Action = [
           "cloudformation:RollbackStack",
           "cloudformation:CreateStack",
-          "cloudformation:DescribeStackInstance",
+          "cloudformation:Describe*",
           "cloudformation:DeleteStack",
           "cloudformation:ListStackResources"
         ]
