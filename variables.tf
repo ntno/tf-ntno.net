@@ -11,5 +11,5 @@ variable "portfolio_domain_name" {
 variable "ci_user" {
   description = "IAM User for programmatic continuous integration"
   type        = string
-  default     = "ntno.net-ci"
+  default     = "ntno-net-ci"
 }
