@@ -27,6 +27,7 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_policy" {
         Action = [
           "s3:GetBucketPublicAccessBlock",
           "s3:PutBucketPublicAccessBlock",
+          "s3:PutEncryptionConfiguration",
           "s3:DeleteBucketWebsite",
           "s3:GetBucketWebsite",
           "s3:PutBucketWebsite",
