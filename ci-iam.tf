@@ -77,8 +77,6 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_stack_policy" {
 
 
 
-
-
 resource "aws_iam_user_policy_attachment" "read_write_artifacts_policy_attachment" {
   user       = var.ci_user
   policy_arn = aws_iam_policy.read_write_artifacts_policy.arn
