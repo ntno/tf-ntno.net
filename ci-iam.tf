@@ -33,13 +33,13 @@ resource "aws_iam_policy" "read_write_ntnonet_ci_policy" {
           "s3:PutBucketPolicy",
           "s3:CreateBucket",
           "s3:GetBucketAcl",
+          "s3:PutBucketAcl",
           "s3:DeleteBucketPolicy",
           "s3:DeleteBucket",
           "s3:GetBucketPolicy"
         ]
         Effect = "Allow"
         Resource = [
-          "arn:aws:s3:::*",
           format("arn:aws:s3:::%s*", var.ci_user)
         ]
       }
