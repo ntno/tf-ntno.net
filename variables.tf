@@ -13,3 +13,9 @@ variable "ci_user" {
   type        = string
   default     = "ntno-net-ci"
 }
+
+variable "cd_user" {
+  description = "IAM User for programmatic continuous (prod) deployment"
+  type        = string
+  default     = "ntno-net-cd"
+}
