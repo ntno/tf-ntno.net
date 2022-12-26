@@ -31,6 +31,7 @@ module "portfolio_site_ci_cd" {
   cd_role_name               = "CD-ntno-net"
   github_repo                = "ntno.net"
   github_org                 = "ntno"
+  github_cd_environment_name = "prod"
   cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
   tags                       = local.global_tags
 }
