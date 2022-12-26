@@ -23,10 +23,12 @@ module "portfolio_site" {
 }
 
 module "portfolio_site_ci_cd" {
-  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=1.0.1"
+  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=update-oidc-permissions"
   site_bucket                = var.portfolio_domain_name
   artifact_bucket_name       = format("%s-artifacts", var.portfolio_domain_name)
   ci_prefix                  = "ntno-net-ci-pr"
+  ci_role_name               = "CI-ntno-net"
+  cd_role_name               = "CD-ntno-net"
   github_repo                = "ntno.net"
   github_org                 = "ntno"
   cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
