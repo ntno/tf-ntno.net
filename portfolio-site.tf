@@ -1,5 +1,5 @@
 module "portfolio_site" {
-  source                        = "git::https://github.com/ntno/tf-module-static-site?ref=2.0.0"
+  source                        = "git::https://github.com/ntno/tf-module-static-site?ref=2.0.1"
   index_document                = "index.html"
   error_document                = "error.html"
   versioning_state              = "Enabled"
@@ -23,14 +23,14 @@ module "portfolio_site" {
 }
 
 module "portfolio_site_ci_cd" {
-  source                        = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=initial"
-  site_bucket                   = var.portfolio_domain_name
-  artifacts_bucket              = format("%s.artifacts", var.portfolio_domain_name)
-  ci_prefix                     = "ntno-net-ci-pr"
-  github_repo                   = "ntno.net"
-  github_org                    = "ntno"
-  cloudfront_distribution_id    = module.portfolio_site.content_cloudfront_distribution_info.id
-  tags                          = local.global_tags
+  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=output-role-name"
+  site_bucket                = var.portfolio_domain_name
+  artifact_bucket_name       = format("%s-artifacts", var.portfolio_domain_name)
+  ci_prefix                  = "ntno-net-ci-pr"
+  github_repo                = "ntno.net"
+  github_org                 = "ntno"
+  cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
+  tags                       = local.global_tags
 }
 
 resource "aws_ssm_parameter" "portfolio_site_cloudfront_distribution_id" {
