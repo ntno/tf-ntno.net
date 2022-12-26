@@ -7,12 +7,12 @@ output "portfolio_site_cloudfront_distribution_id" {
   value       = module.portfolio_site.content_cloudfront_distribution_info.id
 }
 
-output "ci_role_name" {
-  description = "CI IAM Role Name"
-  value       = module.portfolio_site_ci_cd.ci_role_name
+output "ci_role_arn" {
+  description = "CI IAM Role ARN"
+  value       = module.portfolio_site_ci_cd.ci_role_arn
 }
 
-output "cd_role_name" {
-  description = "CD IAM Role Name"
-  value       = module.portfolio_site_ci_cd.cd_role_name
+output "cd_role_arn" {
+  description = "CD IAM Role ARN"
+  value       = module.portfolio_site_ci_cd.cd_role_arn
 }

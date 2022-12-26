@@ -23,7 +23,7 @@ module "portfolio_site" {
 }
 
 module "portfolio_site_ci_cd" {
-  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=1.0.0"
+  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=1.0.1"
   site_bucket                = var.portfolio_domain_name
   artifact_bucket_name       = format("%s-artifacts", var.portfolio_domain_name)
   ci_prefix                  = "ntno-net-ci-pr"
