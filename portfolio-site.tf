@@ -23,17 +23,32 @@ module "portfolio_site" {
 }
 
 module "portfolio_site_ci_cd" {
-  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=update-oidc-permissions"
-  site_bucket                = var.portfolio_domain_name
-  artifact_bucket_name       = format("%s-artifacts", var.portfolio_domain_name)
-  ci_prefix                  = "ntno-net-ci-pr"
-  ci_role_name               = "CI-ntno-net"
-  cd_role_name               = "CD-ntno-net"
-  github_repo                = "ntno.net"
+  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=optional-github-environments"
+  
+  artifact_bucket_name = format("%s-artifacts", var.portfolio_domain_name)
   github_org                 = "ntno"
-  github_cd_environment_name = "prod"
-  cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
-  tags                       = local.global_tags
+  github_repo                = "ntno.net"
+  tags                 = local.global_tags
+
+  integration_environment = {
+    environment_id = "integration"
+    github_environment_name = "gh-ci"
+    ci_prefix      = "ntno-net-ci-pr"
+    tags = {
+      project-environment = "integration"
+    }
+  }
+
+  deployment_environments = {
+    "production" = {
+      deploy_bucket           = var.portfolio_domain_name
+      github_environment_name = "gh-prod"
+      cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
+      tags = {
+        project-environment = "production"
+      }
+    }
+  }
 }
 
 resource "aws_ssm_parameter" "portfolio_site_cloudfront_distribution_id" {
