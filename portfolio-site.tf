@@ -23,17 +23,17 @@ module "portfolio_site" {
 }
 
 module "portfolio_site_ci_cd" {
-  source                     = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=optional-github-environments"
-  
+  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=optional-github-environments"
+
   artifact_bucket_name = format("%s-artifacts", var.portfolio_domain_name)
-  github_org                 = "ntno"
-  github_repo                = "ntno.net"
+  github_org           = "ntno"
+  github_repo          = "ntno.net"
   tags                 = local.global_tags
 
   integration_environment = {
-    environment_id = "integration"
+    environment_id          = "integration"
     github_environment_name = "gh-ci"
-    ci_prefix      = "ntno-net-ci-pr"
+    ci_prefix               = "ntno-net-ci-pr"
     tags = {
       project-environment = "integration"
     }
@@ -41,8 +41,8 @@ module "portfolio_site_ci_cd" {
 
   deployment_environments = {
     "production" = {
-      deploy_bucket           = var.portfolio_domain_name
-      github_environment_name = "gh-prod"
+      deploy_bucket              = var.portfolio_domain_name
+      github_environment_name    = "gh-prod"
       cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
       tags = {
         project-environment = "production"
