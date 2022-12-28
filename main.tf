@@ -20,7 +20,7 @@ data "aws_region" "current" {}
 
 locals {
   global_tags = {
-    CreatedBy   = "tf-ntno.net"
+    CreatedBy   = "ntno/tf-ntno.net"
     Provisioner = "Terraform"
     project     = "ntno.net"
     domain      = "personal"
