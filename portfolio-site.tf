@@ -33,7 +33,7 @@ module "portfolio_site_cicd" {
   integration_environment = {
     environment_id          = "integration"
     github_environment_name = "gh-ci"
-    ci_prefix               = "ntno-net-ci-pr"
+    ci_prefix               = "ntno-net-ci-pr-"
     tags = {
       project-environment = "integration"
     }
