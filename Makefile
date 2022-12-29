@@ -16,14 +16,17 @@ gheconfig:
 init: gheconfig check-env check-region clean
 	terraform init -backend-config="bucket=$(terraform-backend-bucket)" -backend-config="region=$(terraform-backend-region)"
 
+validate: init
+	terraform fmt -recursive
+	terraform validate
+
 clean:
 	rm -rf temp/
 	rm -rf .terraform
 	rm -rf .tfplan
 
-plan: check-env check-region init
+plan: check-env check-region init validate
 	eval "$$(buildenv -e $(env) -d $(region))" && \
-	terraform fmt; \
 	terraform plan -out=$(env).tfplan -state="$(terraform-backend-key)"
 
 apply: check-env check-region
