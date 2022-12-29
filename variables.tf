@@ -7,15 +7,3 @@ variable "portfolio_domain_name" {
   description = "Name of portfolio site's custom domain name.  Must be owned by the AWS account.  Must be unique in S3."
   type        = string
 }
-
-variable "ci_user" {
-  description = "IAM User for programmatic continuous integration"
-  type        = string
-  default     = "ntno-net-ci"
-}
-
-variable "cd_user" {
-  description = "IAM User for programmatic continuous (prod) deployment"
-  type        = string
-  default     = "ntno-net-cd"
-}
