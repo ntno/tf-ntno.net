@@ -23,7 +23,7 @@ module "portfolio_site" {
 }
 
 module "portfolio_site_cicd" {
-  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=0.0.0"
+  source = "git::https://github.com/ntno/tf-module-static-site-cicd?ref=1.0.0"
 
   artifact_bucket_name = format("%s-artifacts", var.portfolio_domain_name)
   github_org           = "ntno"
@@ -44,6 +44,7 @@ module "portfolio_site_cicd" {
       deploy_bucket              = var.portfolio_domain_name
       github_environment_name    = "gh-prod"
       cloudfront_distribution_id = module.portfolio_site.content_cloudfront_distribution_info.id
+      ssm_read_paths             = [aws_ssm_parameter.portfolio_site_cloudfront_distribution_id.name]
       tags = {
         project-environment = "production"
       }
